@@ -25,8 +25,6 @@
     <description>Cordova Globalization Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,globalization</keywords>
-    <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-globalization.git</repo>
-    <issue>https://issues.apache.org/jira/browse/CB/component/12320649</issue>
 
     <js-module src="www/GlobalizationError.js" name="GlobalizationError">
         <clobbers target="window.GlobalizationError" />

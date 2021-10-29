@@ -24,6 +24,11 @@ var argscheck = require('cordova/argscheck'),
 
 var globalization = {
 
+getLanguages:function(successCB, failureCB) {
+    argscheck.checkArgs('fF', 'Globalization.getLanguages', arguments);
+    exec(successCB, failureCB, "Globalization","getLanguages", []);
+},
+
 /**
 * Returns the string identifier for the client's current language.
 * It returns the language identifier string to the successCB callback with a

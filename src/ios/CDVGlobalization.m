@@ -26,6 +26,43 @@
     currentLocale = CFLocaleCopyCurrent();
 }
 
+- (void)getLanguages:(CDVInvokedUrlCommand*)command
+{
+    NSArray<NSString *> *preferredLanguages = [NSLocale preferredLanguages];
+    NSMutableArray *languages = [[NSMutableArray alloc] initWithCapacity:preferredLanguages.count];
+
+    for (NSString *currentLanguage in preferredLanguages) {
+        NSString *language = currentLanguage;
+        if (language.length <= 2) {
+            NSLocale* locale = [NSLocale currentLocale];
+            NSString* localeId = [locale localeIdentifier];
+            NSRange underscoreIndex = [localeId rangeOfString:@"_" options:NSBackwardsSearch];
+            NSRange atSignIndex = [localeId rangeOfString:@"@"];
+            if (underscoreIndex.location != NSNotFound) {
+                //If localeIdentifier did not contain @, i.e. did not have calendar other than Gregoarian selected
+                if(atSignIndex.length == 0)
+                    language = [NSString stringWithFormat:@"%@%@", language, [localeId substringFromIndex:underscoreIndex.location]];
+                else {
+                    NSRange localeRange = NSMakeRange(underscoreIndex.location, atSignIndex.location-underscoreIndex.location);
+                    language = [NSString stringWithFormat:@"%@%@", language, [localeId substringWithRange:localeRange]];
+                }
+            }
+        }
+
+        language = [language stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+
+        [languages addObject:language];
+    }
+
+    CDVPluginResult* result = nil;
+    if (languages.count == 0) {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"can't get languages"];
+    } else {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:languages];
+    }
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
 - (void)getPreferredLanguage:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* result = nil;

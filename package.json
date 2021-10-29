@@ -1,8 +1,10 @@
 {
-  "name": "cordova-plugin-globalization",
-  "version": "1.0.7",
-  "description": "Cordova Globalization Plugin",
-  "types": "./types/index.d.ts",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-globalization/issues"
+  },
   "cordova": {
     "id": "cordova-plugin-globalization",
     "platforms": [
@@ -18,10 +20,20 @@
       "blackberry10"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-globalization"
+  "dependencies": {},
+  "description": "Cordova Globalization Plugin",
+  "devDependencies": {
+    "jshint": "^2.6.0"
   },
+  "directories": {},
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-globalization#readme",
   "keywords": [
     "cordova",
     "globalization",
@@ -37,20 +49,40 @@
     "cordova-tizen",
     "cordova-blackberry10"
   ],
-  "scripts": {
-    "test": "npm run jshint",
-    "jshint": "jshint www && jshint src && jshint tests"
-  },
-  "author": "Apache Software Foundation",
   "license": "Apache-2.0",
-  "engines": {
-    "cordovaDependencies": {
-      "2.0.0": {
-        "cordova": ">100"
-      }
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
     }
+  ],
+  "name": "cordova-plugin-globalization",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {
+    "jshint": "jshint www && jshint src && jshint tests",
+    "test": "npm run jshint"
   },
-  "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+  "types": "./types/index.d.ts",
+  "version": "1.0.7"
 }

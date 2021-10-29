@@ -42,6 +42,10 @@ import org.json.JSONObject;
 
 import android.annotation.TargetApi;
 import android.text.format.Time;
+import android.util.Log;
+import android.content.res.Resources;
+import android.os.LocaleList;
+import android.support.v4.os.LocaleListCompat;
 
 /**
  *
@@ -60,6 +64,7 @@ public class Globalization extends CordovaPlugin  {
     public static final String GETNUMBERPATTERN = "getNumberPattern";
     public static final String GETCURRENCYPATTERN = "getCurrencyPattern";
     public static final String GETPREFERREDLANGUAGE = "getPreferredLanguage";
+    public static final String GETLANGUAGES = "getLanguages";
 
     //GlobalizationCommand Option Parameters
     public static final String OPTIONS = "options";
@@ -86,6 +91,8 @@ public class Globalization extends CordovaPlugin  {
     public static final String CURRENCY = "currency";
     public static final String CURRENCYCODE = "currencyCode";
 
+    private static final String LOG_TAG = "Globalization";
+
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
         JSONObject obj = new JSONObject();
@@ -95,6 +102,10 @@ public class Globalization extends CordovaPlugin  {
                 obj = getLocaleName();
             }else if (action.equals(GETPREFERREDLANGUAGE)){
                 obj = getPreferredLanguage();
+            }else if (action.equals(GETLANGUAGES)){
+                JSONArray array = getLanguages();
+                callbackContext.success(array);
+                return true;
             } else if (action.equalsIgnoreCase(DATETOSTRING)) {
                 obj = getDateToString(data);
             }else if(action.equalsIgnoreCase(STRINGTODATE)){
@@ -198,6 +209,18 @@ public class Globalization extends CordovaPlugin  {
             obj.put("value", toBcp47Language(Locale.getDefault()));
             return obj;
         }catch(Exception e){
+            throw new GlobalizationError(GlobalizationError.UNKNOWN_ERROR);
+        }
+    }
+    private JSONArray getLanguages() throws GlobalizationError {
+        try {
+            ArrayList<String> languages = new ArrayList<String>();
+            LocaleListCompat localeList = LocaleListCompat.getAdjustedDefault();
+            for (int i = 0; i < localeList.size(); i++) {
+                languages.add(toBcp47Language(localeList.get(i)));
+            }
+            return new JSONArray(languages);
+        } catch (Exception e) {
             throw new GlobalizationError(GlobalizationError.UNKNOWN_ERROR);
         }
     }
