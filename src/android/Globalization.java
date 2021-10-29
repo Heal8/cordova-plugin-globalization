@@ -45,7 +45,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.content.res.Resources;
 import android.os.LocaleList;
-import android.support.v4.os.LocaleListCompat;
+import androidx.core.os.LocaleListCompat;
 
 /**
  *
